@@ -1,12 +1,10 @@
-
+import BlogPosts from './components/BlogPosts'
 
 function App() {
 
   return (
     <>
-      <h1 className='font-bold text-3xl font-archivo text-center'>
-        Blogging
-      </h1>
+      <BlogPosts />
     </>
   )
 }
