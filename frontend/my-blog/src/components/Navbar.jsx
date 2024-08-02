@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <>
-        <div className="w-full h-12 fixed md:relative z-10 bg-indigo-500 text-white flex items-center justify-around">
+        <div className="w-full h-12 fixed md:relative z-10 bg-indigo-600 text-white flex items-center justify-around ">
             <div className="flex justify-between md:justify-around w-full">
                 <div className="text-center pl-5 md:pl-0 ">
                     <h1 className="text-3xl ">
@@ -35,7 +35,7 @@ const Navbar = () => {
         </div>
         
             
-            <div className={`w-48 overflow-hidden h-full sliding-container z-10 fixed top-12 ${nav ? ' max-h-screen' : 'max-h-0'}  bg-indigo-600`}>
+            <div className={`w-48 overflow-hidden h-full sliding-container z-10 fixed top-12  shadow-md shadow-gray-800 ${nav ? ' max-h-screen' : 'max-h-0'}  bg-indigo-600`}>
                 <ul className="flex flex-col items-start gap-5 py-10 pl-10">
                     <li className="px-4 py-2 hover:cursor-pointer flex items-center gap-2 text-white text-lg">
                     Post <BsPencilSquare/> 

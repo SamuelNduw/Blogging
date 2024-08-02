@@ -29,7 +29,7 @@ const BlogPosts = () => {
     return (
         <>
             
-            <div className='w-full px-8 pt-24 md:pt-0'>
+            <div className='w-full px-8 pt-24 md:pt-0 pb-24'>
                 <h1 className='hidden md:block text-center font-bold text-4xl p-10'>
                     Blogging
                 </h1>
@@ -68,7 +68,6 @@ const BlogPosts = () => {
                         </div>
                     )
                 }
-                <BlogForm />
             </div>
         </>
     );
