@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BlogCard from './BlogCard';
-import BlogForm from './BlogForm';
-import { getBlogs } from '../services/blogService';
+import { MdDelete } from "react-icons/md";
+import { getBlogs, deleteBlogPost } from '../services/blogService';
 
 const BlogPosts = () => {
     
@@ -11,10 +11,9 @@ const BlogPosts = () => {
         console.log(blog)
     };
     const handleBlogClosed = () => {
-        setSelectedBlog(null)
+        setSelectedBlog(null);
     };
     
-
 
     const [blogs, setBlogs] = useState([]);
 
@@ -26,6 +25,11 @@ const BlogPosts = () => {
 
         fetchBlogs();
     }, []);
+
+    const handleDelete = async (blogID) => {
+        await deleteBlogPost(blogID);
+    }
+
     return (
         <>
             
@@ -64,6 +68,14 @@ const BlogPosts = () => {
                                 <h2 className='font-semibold text-gray-900 text-center'>
                                     by {selectedBlog.author}
                                 </h2>
+                                <div className='flex justify-end'>
+                                    <MdDelete size={30} 
+                                        className='fill-gray-600 hover:fill-red-500'
+                                        onClick={() => {
+                                            handleDelete(selectedBlog.id);
+                                            setSelectedBlog(null);
+                                        }}/>
+                                </div>
                             </div>
                         </div>
                     )

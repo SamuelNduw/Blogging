@@ -16,3 +16,20 @@ export const createBlog = async (blog) => {
     const response = await axios.post(`${API_URL}/blogs/`, blog);
     return response.data;
 }
+
+export const deleteBlogPost = async (blogID) =>{
+    try{
+        const response = await axios.delete(`http://localhost:8000/blogging/blogs/${blogID}/`);
+        console.log('Blog deleted: ', response.data)
+    } catch(e){
+        console.error('Error deleting blog: ', error)
+    }
+}
+export const updateBlogPost = async (blogID, updatedData) => {
+    try{
+        const response = await axios.put(`http://localhost:8000/blogging/blogs/${blogID}/`, updatedData);
+        console.log('Blog updated: ', response.data);
+    } catch(e){
+        console.error('Error updating blog: ', e);
+    }
+}
