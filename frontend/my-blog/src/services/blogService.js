@@ -4,6 +4,7 @@ const API_URL = 'http://localhost:8000/blogging'
 
 export const getBlogs = async () => {
     const response = await axios.get(`${API_URL}/blogs/`);
+    console.log('API')
     return response.data;
 }
 

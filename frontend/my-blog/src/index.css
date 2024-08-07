@@ -29,5 +29,8 @@ body{
 }
 
 .text-shadow{
-    text-shadow: 2px 2px 10px #00000069;
+    text-shadow: 2px 2px 10px #0000003a;
+}
+.active{
+    @apply bg-indigo-500 duration-150 ease-in-out rounded-md
 }

@@ -3,6 +3,8 @@ import BlogCard from './BlogCard';
 import { MdDelete } from "react-icons/md";
 import { getBlogs, deleteBlogPost } from '../services/blogService';
 
+import toast, { Toaster } from 'react-hot-toast';
+
 const BlogPosts = () => {
     
     const [selectedBlog, setSelectedBlog] = useState(null)
@@ -32,7 +34,7 @@ const BlogPosts = () => {
 
     return (
         <>
-            
+            <Toaster />
             <div className='w-full px-8 pt-24 md:pt-0 pb-24'>
                 <h1 className='hidden md:block text-center font-bold text-4xl p-10'>
                     Blogging
@@ -50,6 +52,9 @@ const BlogPosts = () => {
                         null
                     }
                 </div>
+                <button onClick={() => toast.success('here is your toast')}>
+                    toast
+                </button>
                 {
                     selectedBlog && (
                         <div className='fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-35 flex items-center justify-center px-5' onClick={handleBlogClosed}>
