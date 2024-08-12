@@ -14,23 +14,23 @@ const Navbar = () => {
             <div className="flex justify-between md:justify-around w-full">
                 <div className="text-center pl-5 md:pl-0 ">
                     <h1 className="text-3xl ">
-                        <NavLink to='/' end activeClassName='acitve'>
+                        <NavLink to='/' end activeclassname='acitve'>
                             Blogging
                         </NavLink>
                     </h1>
                 </div>
                 <div className=' hidden md:block'>
                     <ul className="flex gap-4">
-                        <NavLink to='/create-post' activeClassName='active'>
+                        <NavLink to='/create-post' activeclassname='active'>
                             <li className="px-4 py-2 hover:cursor-pointer flex items-center gap-2 text-shadow rounded-md bg-none hover:bg-indigo-500 duration-150 ease-in-out">
                                 <BsPencilSquare />
                                 Compose
                             </li>
                         </NavLink>
-                        <NavLink to='/trending' activeClassName='active'>
+                        <NavLink to='/trending' activeclassname='active'>
                             <li className="px-4 py-2 hover:cursor-pointer text-shadow rounded-md bg-none hover:bg-indigo-500 duration-150 ease-in-out">Trending</li>
                         </NavLink>
-                        <NavLink to='/about' activeClassName='active'>
+                        <NavLink to='/about' activeclassname='active'>
                             <li className="px-4 py-2 hover:cursor-pointer text-shadow rounded-md bg-none hover:bg-indigo-500 duration-150 ease-in-out">
                                 About
                             </li>

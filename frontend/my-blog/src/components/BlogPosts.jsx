@@ -30,6 +30,12 @@ const BlogPosts = () => {
 
     const handleDelete = async (blogID) => {
         await deleteBlogPost(blogID);
+
+        const targetIndex = blogs.findIndex(obj => obj.id === blogID);
+        if(targetIndex !== -1){
+            const newArray = blogs.filter((item, index) => index !== targetIndex);
+            setBlogs(newArray)
+        }
     }
 
     return (
@@ -52,9 +58,6 @@ const BlogPosts = () => {
                         null
                     }
                 </div>
-                <button onClick={() => toast.success('here is your toast')}>
-                    toast
-                </button>
                 {
                     selectedBlog && (
                         <div className='fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-35 flex items-center justify-center px-5' onClick={handleBlogClosed}>
