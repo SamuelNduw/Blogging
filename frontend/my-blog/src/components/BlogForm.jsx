@@ -41,7 +41,7 @@ const BlogForm = () => {
     } 
 
   return (
-    <div className="bg-red-400 w-full flex ">
+    <div className="bg-blue-100 w-full h-screen flex ">
     <Toaster />
         <div className="container flex flex-col justify-center mx-auto pt-10 pb-24 gap-10">
             <div className="w-full flex justify-center">

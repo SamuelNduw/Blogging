@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { getBlogs, deleteBlogPost } from '../services/blogService';
 
 import toast, { Toaster } from 'react-hot-toast';
+import BlobsBackground from "./BlobsBackground";
 
 const BlogPosts = () => {
     
@@ -41,7 +42,8 @@ const BlogPosts = () => {
     return (
         <>
             <Toaster />
-            <div className='w-full px-8 pt-24 md:pt-0 pb-24'>
+            <div className='w-full px-8 pt-24 md:pt-0 pb-24 relative'>
+                <BlobsBackground />
                 <h1 className='hidden md:block text-center font-bold text-4xl p-10'>
                     Blogging
                 </h1>
