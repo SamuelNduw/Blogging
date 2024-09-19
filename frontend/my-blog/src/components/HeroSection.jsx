@@ -5,7 +5,7 @@ const HeroSection = () => {
   return (
     <>
         <div className='flex flex-col gap-10 justify-center items-center px-10'>
-                <h1 className='text-5xl uppercase font-bold'>
+                <h1 className='text-6xl uppercase font-bold gradient-text animate-gradient'>
                     Think out loud
                 </h1>
                 <p className="max-w-4xl text-center text-lg">

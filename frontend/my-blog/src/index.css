@@ -34,6 +34,14 @@ body{
 .active{
     @apply bg-indigo-500 duration-150 ease-in-out rounded-md
 }
+.gradient-text {
+    background-image: linear-gradient(to right, #a855f7, #2865ce, #814fd6, #2865ce, #a855f7, #2865ce, #814fd6);
+    background-clip: text;
+    -webkit-background-clip: text; /* Ensure compatibility with WebKit-based browsers */
+    color: transparent; /* This is important to make the gradient visible */
+    background-size: 300% 300%;
+}
+
 
 @layer utilities {
     .animation-delay-2000 {

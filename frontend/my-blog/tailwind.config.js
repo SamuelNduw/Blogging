@@ -14,7 +14,8 @@ export default {
       animation:{
         blob: "blob 9s infinite",
         blob2: "blob2 8s infinite",
-        blob3: "blob3 7s infinite"
+        blob3: "blob3 7s infinite",
+        gradient: "gradient 7s linear infinite"
       },
       keyframes: {
         blob: {
@@ -61,7 +62,15 @@ export default {
           "100%": {
             transform: "translate(0px, 0px) scale(1) rotate(-15deg)",
           },
+        },
+        gradient: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
         }
+      },
+      backgroundSize: {
+        '200%': '200% 200%',
       }
     },
     screens: {
