@@ -6,6 +6,7 @@ import BlogPosts from './components/BlogPosts.jsx';
 import BlogForm from './components/BlogForm.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ImgUpload from './components/ImgUpload.jsx';
+import Testing from './pages/Testing.jsx';
 
 import App from './App.jsx'
 import './index.css'
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
     { index: true, element: <Home /> },
     { path: 'create-post', element: <BlogForm />},
     { path: 'image-upload', element: <ImgUpload />},
-    { path: 'posts', element: <BlogPosts />}
+    { path: 'posts', element: <BlogPosts />},
+    { path: 'testing', element: <Testing />}
   ]
 },
 ])

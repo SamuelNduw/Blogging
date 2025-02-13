@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-        <div className="w-full h-12 fixed md:relative z-10 bg-indigo-600 text-white flex items-center justify-around ">
+        <div className="w-full h-12 relative md:relative z-10 bg-indigo-600 text-white flex items-center justify-around ">
             <div className="flex justify-between md:justify-around w-full">
                 <div className="text-center pl-5 md:pl-0 ">
                     <h1 className="text-3xl ">

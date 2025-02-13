@@ -25,7 +25,7 @@ const ImgUpload = () => {
                 console.log(`Upload is ${progress}% done`);
             },
             (error) => {
-                console.log("There was an error! Upload Failed!");
+                console.log(`There was an error! Upload Failed! \n ${error}`);
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {

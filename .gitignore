@@ -1,2 +1,3 @@
 virt
 backend/db.sqlite3
+.env

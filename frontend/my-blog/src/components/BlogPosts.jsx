@@ -69,6 +69,7 @@ const BlogPosts = () => {
                                         x
                                     </button>
                                 </div>
+                                <img src={selectedBlog.image_url} alt="Blog picture" />
                                 <h1 className='font-semibold text-center text-2xl'>
                                     {selectedBlog.title}
                                 </h1>
