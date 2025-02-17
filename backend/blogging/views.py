@@ -1,7 +1,7 @@
 from .models import Blog
-from .serializer import BlogSerializer
-from rest_framework import generics
-from rest_framework import status
+from .serializer import BlogSerializer, UserRegistrationSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -11,6 +11,17 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from django.http.response import StreamingHttpResponse
 
+class UserRegistrationView(generics.CreateAPIView):
+    serializer_class = UserRegistrationSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            'user': serializer.data,
+            'message': 'User registered successfully.'
+        }, status=status.HTTP_201_CREATED)
 
 class BlogList(APIView):
     def get(self, request):
@@ -53,10 +64,6 @@ class BlogList(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
         
 
-# class BlogRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Blog.objects.all()
-#     serializer_class = BlogSerializer
-
 load_dotenv()
 
 client = OpenAI(
@@ -77,3 +84,9 @@ def answer(request):
     message = "give me 5 ideas i can do using a chatbot"
     response = StreamingHttpResponse(generate_response(message), status=200, content_type="text/plain")
     return response
+
+class ProtectedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({'message': 'Authenticated access granted'})
