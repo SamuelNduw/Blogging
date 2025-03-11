@@ -18,7 +18,7 @@ const Testing = () => {
         setChatMessages((prevMessages) => [...prevMessages, botMessage]);
 
         try{
-            const response = await fetch('http://localhost:8001/hospital/chatbot/', {
+            const response = await fetch('http://localhost:8000/blogging/answer', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({ message: userInput }),

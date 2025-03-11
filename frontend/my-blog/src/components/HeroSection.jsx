@@ -1,9 +1,10 @@
 import React from "react";
 import BlogCard from '../components/BlogCard.jsx';
+import {Link} from 'react-router-dom';
 
 const HeroSection = () => {
   return (
-    <>
+    <div className='w-full'>
         <div className='flex flex-col gap-10 justify-center items-center px-10'>
                 <h1 className='text-6xl uppercase font-bold gradient-text animate-gradient'>
                     Think out loud
@@ -12,9 +13,11 @@ const HeroSection = () => {
                     Share your thoughts in an instant, right at your fingertips. Let your friends know what you are thinking about. The most trendy, controversial and shocking blogs, right here.
                 </p>
                 <div className='w-full flex justify-center'>
-                    <button className='px-4 py-2 bg-indigo-500 hover:bg-indigo-400 shadow-md rounded-lg text-white text-lg duration-500 ease-in-out hover:scale-105'>
-                        Register
-                    </button>
+                    <Link to='signup'>
+                        <button className='px-4 py-2 bg-indigo-500 hover:bg-indigo-400 shadow-md rounded-lg text-white text-lg duration-500 ease-in-out hover:scale-105'>
+                            Register
+                        </button>
+                    </Link>
                 </div>
             </div>
 
@@ -39,7 +42,7 @@ const HeroSection = () => {
                         home={true}/>
                 </div>
             </div>
-    </>
+    </div>
   );
 };
 
