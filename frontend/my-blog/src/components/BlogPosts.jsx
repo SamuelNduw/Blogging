@@ -63,7 +63,7 @@ const BlogPosts = () => {
                 {
                     selectedBlog && (
                         <div className='fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-35 flex items-center justify-center px-5' onClick={handleBlogClosed}>
-                            <div className='bg-white rounded-md max-w-xl mx-auto px-12 py-8 border-2 border-gray-200 flex  flex-col gap-8'>
+                            <div className='bg-white rounded-md h-[87vh] max-w-xl mx-auto px-12 py-8 border-2 border-gray-200 flex  flex-col gap-5'>
                                 <div className='flex justify-end'>
                                     <button className='relative w-10 text-2xl font-bold top-0 right-0 text-black hover:text-red-500' onClick={handleBlogClosed} >
                                         x
@@ -73,7 +73,7 @@ const BlogPosts = () => {
                                 <h1 className='font-semibold text-center text-2xl'>
                                     {selectedBlog.title}
                                 </h1>
-                                <p className='font-semibold text-gray-700 w-full overflow-hidden'>
+                                <p className='font-semibold text-gray-700 w-full overflow-scroll'>
                                     {selectedBlog.body}
                                 </p>
                                 <h2 className='font-semibold text-gray-900 text-center'>

@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+LOCAL_NETWORK = os.getenv('LOCAL_NETWORK')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +32,7 @@ SECRET_KEY = 'django-insecure--n8osta0cl^f8&6%8hg=0+p+oce-%6a!27f*pzk519!4xf_nf9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'blogging',
+    'ai',
     'rest_framework',
     'rest_framework_simplejwt'
 ]
@@ -80,14 +87,15 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,  # Ensure your SECRET_KEY is used securely.
     'AUTH_HEADER_TYPES': ('Bearer',),
-    # Additional configurations per documentation
+    
+    'TOKEN_OBTAIN_SERIALIZER': 'blogging.serializers.CustomTokenObtainPairSerializer',
 }
 
 
@@ -148,4 +156,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173']  # Make sure the port number matches the one you're using for the React app.
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173', f"http://{LOCAL_NETWORK}:5173", "http://192.168.178.41:5173"]  # Make sure the port number matches the one you're using for the React app.

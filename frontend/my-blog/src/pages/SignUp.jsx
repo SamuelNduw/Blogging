@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import BlobsBackground from '../components/BlobsBackground';
 import { registerUser, getTokens, tokenRefresh } from '../services/blogService';
 import Cookies from 'js-cookie';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
@@ -10,7 +11,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-
+    const navigate = useNavigate();
 
     useEffect(()=> {
         if(!Cookies.get('accessToken')){
@@ -23,7 +24,7 @@ const SignUp = () => {
             getNewAccessToken();
             console.log('success')
         } else{
-            console.log("cookie")
+            navigate('/posts')
         }
     }, [])
 
@@ -41,8 +42,8 @@ const SignUp = () => {
             const response = await registerUser(data);
             if(response.status === 201){
                 const tokens = await getTokens(data);
-                accessToken = tokens.access;
-                refreshToken = tokens.refresh;
+                accessToken = tokens.data.access;
+                refreshToken = tokens.data.refresh;
             }else{
                 throw new Error("Error signing up");
             }
@@ -50,7 +51,11 @@ const SignUp = () => {
             Cookies.set('accessToken', accessToken, { expires: 1/24 });
             Cookies.set('refreshToken', refreshToken, { expires: 7 });
 
-            toast.success('Successfully Signed Up.')
+            toast.success('Successfully Signed Up.');
+
+            setTimeout(() => {
+                navigate('/posts')
+            }, 1500)
         } catch(e){
             console.error("Sign Up failed", e);
         }
@@ -58,12 +63,12 @@ const SignUp = () => {
 
   return (
     <>
-        <div className='w-full px-8 pt-24 md:pt-0 pb-24 relative'>
+        <div className='w-full px-8 pt-24 md:pt-10 pb-24 relative'>
             <Toaster />
             <BlobsBackground />
-            <div className="container mx-auto  bg-[#ffffff91] px-12 py-16 rounded-md shadow-lg">
+            <div className="container mx-auto bg-[#ffffff91] px-12 py-16 rounded-md shadow-lg flex justify-center">
                 <form action=""
-                    className="flex flex-col gap-5"
+                    className="flex flex-col gap-5 w-80 md:w-[40rem]"
                     onSubmit={handleSubmit}
                 >
                     <h1 className="text-center text-4xl">

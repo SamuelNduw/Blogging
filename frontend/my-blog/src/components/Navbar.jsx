@@ -1,12 +1,34 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoMdMenu, IoMdTrendingUp, IoMdInformationCircleOutline } from "react-icons/io";
 import { BsPencilSquare } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
 
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
+
 const Navbar = () => {
 
     const [nav, setNav] = useState(false);
+    const [login, isLogin] = useState(false)
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+    
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    }
+
+    const handleLogin = () => {
+        navigate('/signup2')
+    }
+    
+    useEffect(() => {
+        if(Cookies.get('accessToken') && Cookies.get('refreshToken')){
+            isLogin(true);
+        }
+    }, [])
 
   return (
     <>
@@ -38,6 +60,20 @@ const Navbar = () => {
                                 About
                             </li>
                         </NavLink>
+                        {login ? (
+                            <button onClick={handleLogout}>
+                                <li className="px-4 py-2 hover:cursor-pointer text-shadow rounded-md bg-none hover:bg-indigo-500 duration-150 ease-in-out">
+                                    Logout
+                                </li>
+                            </button>
+                        ): (
+                            <button onClick={handleLogin}>
+                                <li className="px-4 py-2 hover:cursor-pointer text-shadow rounded-md bg-none hover:bg-indigo-500 duration-150 ease-in-out">
+                                    Login
+                                </li>
+                            </button>
+                        )
+                        }
                     </ul>
                 </div>
             </div>
