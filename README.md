@@ -2,7 +2,7 @@
 
 *An AI-assisted blog creation platform, allowing you to create enhanced blogs with the help of AI.*
 
-<!-- ![](./assets/BloggingShowcaseSnippet.gif) -->
+![](./assets/BloggingShowcaseSnippet.gif)
 
 An AI-assisted blog creation platform, allowing you to create enhanced blogs with the help of AI.
 
