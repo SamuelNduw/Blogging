@@ -11,9 +11,12 @@ import Testing from './pages/Testing.jsx';
 import SignUp2 from './pages/SignUp2.jsx';
 import ProtectedRoute from './context/ProtectedRoute.jsx';
 import { AuthProvider } from "./context/AuthContext";
+import { BlogProvider } from './context/BlogContext.jsx';
 
 import App from './App.jsx'
 import './index.css'
+import BlogReaderPage from './pages/BlogReaderPage.jsx';
+// import TextToSpeech from './pages/TextToSpeech.jsx';
 
 const router = createBrowserRouter([
 {
@@ -25,8 +28,11 @@ const router = createBrowserRouter([
     { path: 'create-post', element: <BlogForm />},
     { path: 'image-upload', element: <ImgUpload />},
     { path: 'posts', element: <BlogPosts />},
+    { path: 'posts/read', element: <BlogReaderPage />},
     { path: 'signup', element: <SignUp />},
     { path: 'signup2', element: <SignUp2 />},
+    // { path: 'text-to-speech', element: <TextToSpeech/>},
+    // { path: 'testing', element: <Testing/>},
     { 
       path: 'dashboard',
       element: <ProtectedRoute />,
@@ -40,8 +46,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    {/* <AuthProvider> */}
+      <BlogProvider>
+        <RouterProvider router={router} />
+      </BlogProvider>
+    {/* </AuthProvider> */}
   </React.StrictMode>,
 )

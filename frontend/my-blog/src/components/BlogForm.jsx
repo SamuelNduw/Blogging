@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, Button } from '@headlessui/react';
 import { ChevronDownIcon, SparklesIcon } from '@heroicons/react/24/solid'
-import ImageModal from "./ImageModal";
 import BlobsBackground from "./BlobsBackground";
 import { v4 as uuidv4 } from 'uuid'
 
@@ -14,7 +13,6 @@ const BlogForm = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
 
-    // const variations = ["When I touched down in Cape Town, I was quite surprised by the chilly weather. My journey began with a trip to the city center on my way to the hotel. Coming from a smaller town, I was impressed by the advanced road systems and the variety of road signs I had never encountered before. \n\nThe folks at the hotel were incredibly friendly, offering me handy tips about exploring the city. Undoubtedly, the best view in Cape Town was from Table Mountain. I couldn't help but wonder how they managed to construct a restaurant up there—definitely something I'll have to look up! \n\nAnd then there was Boulders Beach, which left me puzzled because who knew there were penguins in Africa?", "When I touched down in Cape Town, I was quite surprised by the chilly weather. My journey began with a trip to the city center on my way to the hotel. Coming from a smaller town, I was impressed by the advanced road systems and the variety of road signs I had never encountered before. \n\nThe folks at the hotel were incredibly friendly, offering me handy tips about exploring the city. Undoubtedly, the best view in Cape Town was from Table Mountain. I couldn't help but wonder how they managed to construct a restaurant up there—definitely something I'll have to look up! \n\nAnd then there was Boulders Beach, which left me puzzled because who knew there were penguins in Africa?", "When I touched down in Cape Town, I was quite surprised by the chilly weather. My journey began with a trip to the city center on my way to the hotel. Coming from a smaller town, I was impressed by the advanced road systems and the variety of road signs I had never encountered before. \n\nThe folks at the hotel were incredibly friendly, offering me handy tips about exploring the city. Undoubtedly, the best view in Cape Town was from Table Mountain. I couldn't help but wonder how they managed to construct a restaurant up there—definitely something I'll have to look up! \n\nAnd then there was Boulders Beach, which left me puzzled because who knew there were penguins in Africa?"]
     const [variations, setVariations] = useState([]);
 
     const [isBlogModalOpen, setIsBlogModalOpen] = useState(false);

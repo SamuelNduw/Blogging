@@ -1,11 +1,10 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
 
-const API_URL =  `http://${import.meta.env.VITE_LOCAL_NETWORK}:8000/blogging`
-// const API_URL =  `http://localhost:8000/blogging`
+// const API_URL =  `http://${import.meta.env.VITE_LOCAL_NETWORK}:8000/blogging`
+const API_URL =  `http://localhost:8000/blogging`
 
 export const getBlogs = async () => {
-    // const response = await axios.get(`${API_URL}/blogs/`);
     const response = await axios.get(`${API_URL}/blogs/get`);
     console.log('API')
     return response.data;
@@ -14,6 +13,11 @@ export const getBlogs = async () => {
 export const getBlog = async (id) => {
     const response = await axios.get(`${API_URL}/blogs/${id}`)
     return response.data;
+}
+
+export const getLatestBlogs = async () => {
+    const response = await axios.get(`${API_URL}/blogs/get-latest`);
+    return response;
 }
 
 export const createBlog = async (blog) => {
