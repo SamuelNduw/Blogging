@@ -35,6 +35,19 @@ class BlogGet(APIView):
         Blogs = Blog.objects.all().order_by('-created_at')
         serializer = BlogSerializer2(Blogs, many=True)
         return Response(serializer.data)
+    
+class GetLatestBlogs(APIView):
+    def get(self, request):
+        latestBlogs = Blog.objects.order_by('-created_at')[:4]
+        serializer = BlogSerializer2(latestBlogs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class BlogCreateView(generics.CreateAPIView):
+    serializer_class = BlogSerializer2
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class BlogList(APIView):
     def get(self, request):
@@ -75,23 +88,7 @@ class BlogList(APIView):
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-class BlogCreateView(generics.CreateAPIView):
-    serializer_class = BlogSerializer2
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
         
-class SendImage(APIView):
-    def get(self, request):
-        try:
-            with open("./blogging/gemini-native-image.png", 'rb') as f:
-                image_data = f.read()
-        except FileNotFoundError:
-            return HttpResponse(status=404)
-        
-        return HttpResponse(image_data, content_type='image/png')
-
 load_dotenv()
 
 client = OpenAI(
@@ -116,8 +113,43 @@ def answer(request):
     response = StreamingHttpResponse(generate_response(message), status=200, content_type="text/plain")
     return response
 
-class ProtectedView(APIView):
+class UserBlogsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({'message': 'Authenticated access granted'})
+        try:
+            user_blogs = Blog.objects.filter(author=request.user).order_by('-created_at')
+            serializer = BlogSerializer2(user_blogs, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {'error': 'Failed to fetch user blogs', 'details': str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            user = request.user
+            user_blogs_count = Blog.objects.filter(author=user).count()
+            
+            profile_data = {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name or '',
+                'last_name': user.last_name or '',
+                'date_joined': user.date_joined,
+                'is_staff': user.is_staff,
+                'is_admin': user.is_superuser,
+                'blog_count': user_blogs_count,
+            }
+            
+            return Response(profile_data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {'error': 'Failed to fetch user profile', 'details': str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

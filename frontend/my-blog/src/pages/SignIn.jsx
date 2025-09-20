@@ -1,61 +1,51 @@
-// SignUp.jsx
-import { useState, useEffect } from "react";
-import BlobsBackground from "../components/BlobsBackground";
-import toast, { Toaster } from "react-hot-toast";
+// SignUp2.jsx
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+
+import BlobsBackground from "../components/BlobsBackground";
 import { useAuth } from "../context/AuthContext";
 
-const SignUp = () => {
+const SignUp2 = () => {
   const navigate = useNavigate();
-  const { signUp, signIn, isAuthenticated, loading } = useAuth();
+  const { signIn, isAuthenticated, loading } = useAuth();
 
   const [username, setUsername] = useState("");
-  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // If already logged in, bounce away
+  // If user is already authenticated, bounce to profile
   useEffect(() => {
     if (!loading && isAuthenticated()) {
-      navigate("/userprofile"); // adjust if your route differs
+      navigate("/profile"); // change if your route is different
     }
   }, [loading, isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!username || !email || !password) {
+    if (!username || !password) {
       toast.error("Please fill out all fields.");
       return;
     }
 
     try {
       setSubmitting(true);
-
-      // 1) Create account (no tokens returned by your context)
-      const { error: signUpErr } = await signUp(email, password, username);
-      if (signUpErr) {
-        toast.error(signUpErr.message || "Error signing up.");
+      const { error } = await signIn(username, password);
+      if (error) {
+        toast.error(error.message || "Invalid credentials.");
         return;
       }
-
-      // 2) Immediately sign in to obtain tokens in localStorage
-      const { error: signInErr } = await signIn(username, password);
-      if (signInErr) {
-        toast.error(signInErr.message || "Account created, but login failed.");
-        return;
-      }
-
-      toast.success("Account created. Welcome!");
-      navigate("/userprofile"); // go to profile
+      toast.success("Successfully logged in.");
+      navigate("/profile"); // change if your route is different
     } catch (err) {
-      console.error("Sign Up failed", err);
-      toast.error("Sign up failed. Please try again.");
+      console.error("Login failed:", err);
+      toast.error("Login failed. Please try again.");
     } finally {
       setSubmitting(false);
     }
   };
 
+  // Optional: Prevent flashing the form while auth state is resolving
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -70,12 +60,15 @@ const SignUp = () => {
         <Toaster position="top-center" />
         <BlobsBackground />
 
+        {/* Main Card */}
         <div className="max-w-md w-full space-y-8 bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-2xl border border-white/20">
+          {/* Header */}
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h2>
-            <p className="text-gray-600">Join our community and start sharing your stories</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>
+            <p className="text-gray-600">Sign in to your account to continue writing</p>
           </div>
 
+          {/* Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div>
@@ -96,23 +89,6 @@ const SignUp = () => {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition duration-200 bg-white/80"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                />
-              </div>
-
-              <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                   Password
                 </label>
@@ -121,12 +97,32 @@ const SignUp = () => {
                   name="password"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition duration-200 bg-white/80"
                   type="password"
-                  placeholder="Create a password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  autoComplete="new-password"
+                  autoComplete="current-password"
                 />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                />
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                  Remember me
+                </label>
+              </div>
+
+              <div className="text-sm">
+                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-200">
+                  Forgot password?
+                </a>
               </div>
             </div>
 
@@ -135,14 +131,14 @@ const SignUp = () => {
               type="submit"
               disabled={submitting}
             >
-              {submitting ? "Creating..." : "Create account"}
+              {submitting ? "Signing in..." : "Sign in to your account"}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Already have an account?{" "}
-                <a href="/signin" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-200">
-                  Sign in here
+                Don&apos;t have an account?{" "}
+                <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-200">
+                  Create one here
                 </a>
               </p>
             </div>
@@ -153,4 +149,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUp2;

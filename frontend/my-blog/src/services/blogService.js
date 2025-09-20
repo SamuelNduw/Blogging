@@ -112,3 +112,17 @@ export const imageGeneration = async (blogInfo) => {
         console.error('Error occurred while fetching image: ', e);
     }
 }
+
+export const getUserBlogs = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/blogs/user`, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('accessToken')}`
+            }
+        });
+        return response.data;
+    } catch(e) {
+        console.error('Error fetching user blogs: ', e);
+        return [];
+    }
+}

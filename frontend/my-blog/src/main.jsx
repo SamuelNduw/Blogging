@@ -8,7 +8,7 @@ import NotFoundPage from './pages/NotFoundPage.jsx';
 import ImgUpload from './components/ImgUpload.jsx';
 import SignUp from './pages/SignUp.jsx';
 import Testing from './pages/Testing.jsx';
-import SignUp2 from './pages/SignUp2.jsx';
+import SignIn from './pages/SignIn.jsx';
 import ProtectedRoute from './context/ProtectedRoute.jsx';
 import { AuthProvider } from "./context/AuthContext";
 import { BlogProvider } from './context/BlogContext.jsx';
@@ -16,6 +16,8 @@ import { BlogProvider } from './context/BlogContext.jsx';
 import App from './App.jsx'
 import './index.css'
 import BlogReaderPage from './pages/BlogReaderPage.jsx';
+import About from './pages/About.jsx';
+import UserProfile from './pages/UserProfile.jsx';
 // import TextToSpeech from './pages/TextToSpeech.jsx';
 
 const router = createBrowserRouter([
@@ -29,8 +31,10 @@ const router = createBrowserRouter([
     { path: 'image-upload', element: <ImgUpload />},
     { path: 'posts', element: <BlogPosts />},
     { path: 'posts/read', element: <BlogReaderPage />},
+    { path: 'about', element: <About />},
+    { path: 'profile', element: <UserProfile />},
     { path: 'signup', element: <SignUp />},
-    { path: 'signup2', element: <SignUp2 />},
+    { path: 'signin', element: <SignIn />},
     // { path: 'text-to-speech', element: <TextToSpeech/>},
     // { path: 'testing', element: <Testing/>},
     { 
@@ -46,10 +50,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <AuthProvider> */}
+    <AuthProvider>
       <BlogProvider>
         <RouterProvider router={router} />
       </BlogProvider>
-    {/* </AuthProvider> */}
+    </AuthProvider>
   </React.StrictMode>,
 )

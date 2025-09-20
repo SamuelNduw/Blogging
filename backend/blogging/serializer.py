@@ -32,7 +32,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ('id', 'title', 'body', 'author', 'created_at', 'image_url') 
+        fields = ('id', 'title', 'body', 'author', 'created_at', 'image_url', 'audio_url') 
 
 class BlogSerializer2(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
