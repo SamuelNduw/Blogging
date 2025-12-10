@@ -1,8 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import '@/styles/_variables.scss'; 
+@import '@/styles/_keyframe-animations.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Override Tailwind base styles that might block text selection */
+@layer base {
+  .tiptap-editor-container .ProseMirror {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+    cursor: text !important;
+  }
+  
+  /* Ensure no parent containers are blocking selection */
+  .tiptap-editor-container,
+  .tiptap-editor-container * {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+}
 
 body{
     font-family:archivo;
@@ -34,14 +53,14 @@ body{
 .active{
     @apply bg-indigo-500 duration-150 ease-in-out rounded-md
 }
+
 .gradient-text {
     background-image: linear-gradient(to right, #a855f7, #2865ce, #814fd6, #2865ce, #a855f7, #2865ce, #814fd6);
     background-clip: text;
-    -webkit-background-clip: text; /* Ensure compatibility with WebKit-based browsers */
-    color: transparent; /* This is important to make the gradient visible */
+    -webkit-background-clip: text; 
+    color: transparent; 
     background-size: 300% 300%;
 }
-
 
 @layer utilities {
     .animation-delay-2000 {
@@ -52,6 +71,13 @@ body{
     }
     .animation-delay-5000 {
         animation-delay: 5s;
+    }
+    
+    .select-text {
+        -webkit-user-select: text !important;
+        -moz-user-select: text !important;
+        -ms-user-select: text !important;
+        user-select: text !important;
     }
 }
 
@@ -95,4 +121,49 @@ body{
     padding: 8px;
     border-radius: 8px;
     @apply md:max-w-[60%] max-w-[80%]
+}
+
+.tiptap-editor-container .ProseMirror {
+  outline: none !important;
+  
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+  
+  caret-color: auto !important;
+  cursor: text !important;
+}
+
+.tiptap-editor-container .ProseMirror * {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+.tiptap-editor-container .ProseMirror p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Ensure the editor container and all children allow text selection */
+.tiptap-editor-container,
+.tiptap-editor-container * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+.blog-body img {
+    max-width: min(100%, 640px);
+    max-height: 400px; 
+    width: auto;
+    height: auto;
+    object-fit: contain; 
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 0.5rem;
 }

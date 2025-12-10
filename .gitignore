@@ -2,3 +2,6 @@ virt
 backend/db.sqlite3
 .env
 __pycache__
+
+blogging-firebase-service-account.json
+speech_backend/asset

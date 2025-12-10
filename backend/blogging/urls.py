@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from .views import (
     BlogList, UserRegistrationView, GetLatestBlogs, BlogCreateView, BlogGet, 
-    CustomTokenObtainPairView, UserBlogsView, UserProfileView
+    CustomTokenObtainPairView, UserBlogsView, UserProfileView, BlogInlineImageUploadView, BlogDeleteView, BulkBlogDeleteView
 )
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -14,9 +14,13 @@ urlpatterns = [
     path('blogs/<int:blog_id>/', BlogList.as_view(), name='delete-blog'),
 
     path('blogs/create', BlogCreateView.as_view(), name='create-blog'),
+    path('blogs/<int:pk>/delete/', BlogDeleteView.as_view(), name='delete-blog'),
+    path('blogs/bulk-delete/', BulkBlogDeleteView.as_view(), name='delete-bulk-blog'),
+    path("blogs/upload-image/", BlogInlineImageUploadView.as_view(), name="blog-inline-image-upload"),
     path('blogs/get', BlogGet.as_view(), name='get-all-blog'),
     path('blogs/get-latest', GetLatestBlogs.as_view(), name='get-lastest-blogs'),
     path('blogs/user', UserBlogsView.as_view(), name='get-user-blogs'),
+
     path('user/profile/', UserProfileView.as_view(), name='user-profile'),
 
     path('answer', views.answer),
